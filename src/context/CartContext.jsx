@@ -1,5 +1,5 @@
 // src/context/CartContext.js
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 
 export const CartContext = createContext();
 
@@ -21,6 +21,11 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  // Function to remove items from the cart
+  const removeFromCart = (itemId) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+  };
+
   // Function to clear the cart
   const clearCart = () => {
     setCartItems([]);
@@ -29,7 +34,7 @@ export const CartProvider = ({ children }) => {
   };
 
   // Update totalItems and totalPrice whenever cartItems change
-  React.useEffect(() => {
+  useEffect(() => {
     const itemsCount = cartItems.reduce((acc, item) => acc + item.quantity, 0);
     const priceTotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
     
@@ -38,7 +43,7 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   return (
-    <CartContext.Provider value={{ cartItems, totalItems, totalPrice, addToCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, totalItems, totalPrice, addToCart, removeFromCart, clearCart }}>
       {children}
     </CartContext.Provider>
   );
