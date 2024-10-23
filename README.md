@@ -31,6 +31,25 @@ Cart: Displays items in the cart and the total price.
 Checkout: Handles user input for completing the purchase.
 
 
+Workflow
+The workflow of the application is structured as follows:
 
-License
-This project is licensed under the MIT License.
+Data Fetching:
+Upon loading the ProductList component, an API call is made to https://fakestoreapi.com/products to fetch product data.
+The fetched data is stored in the component's state and is then passed to child components for rendering.
+
+Displaying Products:
+The ProductList component maps over the fetched products and renders a ProductCard for each product.
+Each ProductCard displays product information and has an "Add to Cart" button.
+
+Managing Cart State:
+The cart's state is managed using React's Context API in the CartContext.
+When a user clicks "Add to Cart," the product is added to the cart state, and the total item count is updated.
+
+Cart Functionality:
+The Cart component displays the current items in the cart, total price, and provides an option to remove items.
+Users can navigate to the checkout page from the cart.
+
+Checkout Process:
+The Checkout component collects user details (name, address, payment) and displays an order summary.
+Upon submission, the cart is cleared after a brief delay, allowing the user to see the confirmation.
